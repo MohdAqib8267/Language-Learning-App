@@ -254,7 +254,7 @@ const Quiz = () => {
             </Button>
           </div>)
           :
-            id === '' ? (
+            id == 0 ? (
               <div className="Quiz-DisplayResult">
                 <h2>No More Exercise Available.</h2>
               </div>

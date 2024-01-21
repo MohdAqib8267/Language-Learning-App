@@ -60,6 +60,8 @@ const SelectLanguage = () => {
             console.log("No list available");
           }
           setId(result?.data?.id);
+          console.log(id);
+          // console.log(result);
         }
           // console.log(result);
         } catch (error) {
@@ -107,7 +109,8 @@ const SelectLanguage = () => {
           <button
             onClick={() =>
               !isAuthenticated? alert('You Are Not Logged In'):
-              language ? navigate(`/exercise/${id}`) : 
+              language && id ? navigate(`/exercise/${id}`):
+              language ? navigate(`/exercise/0`) : 
               alert("Please select language")
             }
           >
