@@ -66,6 +66,7 @@ const Quiz_Set = [
 ]
 
 const Quiz = () => {
+  const base_URL = import.meta.env.VITE_API_BASE_URL;
     const [activeStep, setActiveStep] = useState(0);
     const [quizSet, setQuizSet] = useState(Quiz_Set);
     const [booleanonsubmit, setBooleanOnSubmit] = useState(false);
@@ -82,7 +83,7 @@ const Quiz = () => {
     //fetch language
     useEffect(()=>{
       const fetchLang = async()=>{
-        const result = await axios.post(`http://localhost:8000/api/exercise`,{
+        const result = await axios.post(`${base_URL}/exercise`,{
           exerciseId:id
         })
         console.log(result);
@@ -99,7 +100,7 @@ const Quiz = () => {
 
     useEffect(()=>{
       const findUser = async()=>{
-        const result = await axios.post(`http://localhost:8000/api/user/signup`,{
+        const result = await axios.post(`${base_URL}/user/signup`,{
           email:user.email
         })
         // console.log(result?.data?.existingUser);
@@ -111,10 +112,10 @@ const Quiz = () => {
     useEffect(()=>{
         const fetchQues = async () => {
             try {
-                const result = await axios.get(`http://localhost:8000/api/exercise/${id}`);
+                const result = await axios.get(`${base_URL}/exercise/${id}`);
       
               if (!result.data) {
-                console.log("Questions not available");
+                console.log("Questions not available");  
               }
               setQuizSet(result?.data);
               // console.log(result);
@@ -201,7 +202,7 @@ const Quiz = () => {
         
         const updateUserLevel = async()=>{
           const userId=userDetails;
-          const findUser = await axios.post(`http://localhost:8000/api/user/find`,{
+          const findUser = await axios.post(`${base_URL}/user/find`,{
             userId:userId,
             points:points,
             exerciseId:id
@@ -229,7 +230,7 @@ const Quiz = () => {
 
       const userId=userDetails;
       // console.log(userId,language);
-      const newex = await axios.post(`http://localhost:8000/api/exercise`,{
+      const newex = await axios.post(`${base_URL}/exercise`,{
         language:language,
         userId:userId
       })
@@ -255,7 +256,7 @@ const Quiz = () => {
           :
             id === 'undefined' ? (
               <div className="Quiz-DisplayResult">
-                <h2>Exercise Finish</h2>
+                <h2>No More Exercise Available.</h2>
               </div>
             ) : 
           <div className="Quiz_container_display">

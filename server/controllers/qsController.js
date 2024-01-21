@@ -114,15 +114,15 @@ export const fetchExercise = asyncHandler(async (req, res) => {
           id:exerciseId
         }
       })
-      res.json(exe);
+      return res.json(exe);
     }
     if (!exe) {
-      res.json({ message: "Exercise not available for this Language" });
+     return res.json({ message: "Exercise not available for this Language" });
     }
-    res.status(200).json(exe);
+    return res.status(200).json(exe);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+   return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

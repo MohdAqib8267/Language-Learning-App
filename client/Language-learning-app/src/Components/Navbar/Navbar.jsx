@@ -60,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const base_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -171,6 +172,8 @@ export default function PrimarySearchAppBar() {
   );
   const [userDetails, setUserDetails] = React.useState();
 
+  // console.log(base_URL);
+
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
   // console.log(user);
   
@@ -179,7 +182,7 @@ export default function PrimarySearchAppBar() {
       console.log("call");
       if (user) {
         const result = await axios.post(
-          `http://localhost:8000/api/user/signup`,
+          `${base_URL}/user/signup`,
           {
            email: user.email
           }

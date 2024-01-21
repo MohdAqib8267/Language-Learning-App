@@ -12,10 +12,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Footer from "../../Components/Footer/Footer";
 
 const SelectLanguage = () => {
+  const base_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [language, setLanguage] = React.useState('');
   const [list,setList]=React.useState([]);
   const [id,setId]=useState('');
+  const {user}=useAuth0();
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
@@ -24,7 +26,7 @@ const SelectLanguage = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const result = await axios.get(`http://localhost:8000/api/language`);
+        const result = await axios.get(`${base_URL}/language`);
 
         if (!result) {
           console.log("No list available");
@@ -42,21 +44,30 @@ const SelectLanguage = () => {
   useEffect(()=>{
     const fetchExercise = async () => {
         try {
-            const result = await axios.post("http://localhost:8000/api/exercise", {
+          if(user){
+          const findUser = await axios.post(`${base_URL}/user/signup`,{
+            email:user.email
+          })
+          console.log(findUser);
+        
+            const result = await axios.post(`${base_URL}/exercise`, {
                 language: language, 
+                userId:findUser?.data?.existingUser?.id
+                
               });
   
           if (!result.data) {
             console.log("No list available");
           }
           setId(result?.data?.id);
+        }
           // console.log(result);
         } catch (error) {
           console.log(error);
         }
       };
       fetchExercise();
-  },[language]);
+  },[language,user]);
   // console.log(id);
 
   const {  isAuthenticated } = useAuth0();

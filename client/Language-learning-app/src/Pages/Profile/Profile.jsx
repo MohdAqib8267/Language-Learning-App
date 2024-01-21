@@ -9,12 +9,13 @@ import Footer from '../../Components/Footer/Footer';
 const Profile = () => {
     const navigate = useNavigate();
     const {user} = useAuth0();
+    const base_URL = import.meta.env.VITE_API_BASE_URL;
     // console.log(user);  
     const [userDetails,setUserDetails]=useState('');
 
     useEffect(()=>{
       const findUser = async()=>{
-        const result = await axios.post(`http://localhost:8000/api/user/signup`,{
+        const result = await axios.post(`${base_URL}/user/signup`,{
           email:user.email
         })
         // console.log(result?.data?.existingUser);
