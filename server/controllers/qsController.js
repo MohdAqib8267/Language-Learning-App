@@ -77,20 +77,19 @@ export const createExercise = asyncHandler(async (req, res) => {
 
 //fetch exercise
 export const fetchExercise = asyncHandler(async (req, res) => {
-  const { language,userId,exerciseId } = req.body;
+  const { language, userId, exerciseId } = req.body;
+
   try {
     let exe;
-    
+
     if (language && userId) {
       const alreadyDone = await prisma.vote.findMany({
         where: { userId: userId }
       });
-  
-      // console.log(alreadyDone);
-  
+
       const exerciseIdArray = alreadyDone.map((item) => item.exerciseId);
-  
-       exe = await prisma.exercise.findFirst({ 
+
+      exe = await prisma.exercise.findFirst({
         where: {
           category: language,
           id: {
@@ -98,32 +97,24 @@ export const fetchExercise = asyncHandler(async (req, res) => {
           },
         },
       });
-  
-      // console.log(exe);
+    } else if (exerciseId) {
+      exe = await prisma.exercise.findFirst({
+        where: {
+          id: exerciseId,
+        },
+      });
+    } else {
+      return res.status(400).json({ message: "Both language and userId are required or exerciseId should be provided." });
     }
-    // else if(language){
-    //   exe = await prisma.exercise.findFirst({
-    //     where: {
-    //       category: language,
-    //     },
-    //   });
-    
-    // }
-    else{
-      exe=await prisma.exercise.findFirst({
-        where:{
-          id:exerciseId
-        }
-      })
-      return res.json(exe);
-    }
+
     if (!exe) {
-     return res.json({ message: "Exercise not available for this Language" });
+      return res.status(404).json({ message: "Exercise not available for this Language or ExerciseId" });
     }
+
     return res.status(200).json(exe);
   } catch (error) {
     console.error(error);
-   return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

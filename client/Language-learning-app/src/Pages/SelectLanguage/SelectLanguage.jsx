@@ -59,6 +59,7 @@ const SelectLanguage = () => {
           if (!result.data) {
             console.log("No list available");
           }
+          console.log(result);
           setId(result?.data?.id);
         }
           // console.log(result);
