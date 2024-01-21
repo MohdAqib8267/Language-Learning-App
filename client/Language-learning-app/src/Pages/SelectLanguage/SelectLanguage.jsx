@@ -48,7 +48,7 @@ const SelectLanguage = () => {
           const findUser = await axios.post(`${base_URL}/user/signup`,{
             email:user.email
           })
-          console.log(findUser,language);
+          console.log(findUser);
         
             const result = await axios.post(`${base_URL}/exercise`, {
                 language: language, 
@@ -59,7 +59,6 @@ const SelectLanguage = () => {
           if (!result.data) {
             console.log("No list available");
           }
-          console.log(result);
           setId(result?.data?.id);
         }
           // console.log(result);
