@@ -13,5 +13,5 @@
 > run project on localhost using
 > npm run dev
 > #### Go to server folder
-> run: npm install
+> run: npm install <br/>
 >run: npm run start
