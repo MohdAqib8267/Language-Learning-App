@@ -17,7 +17,7 @@ const SelectLanguage = () => {
   const [language, setLanguage] = React.useState('');
   const [list,setList]=React.useState([]);
   const [id,setId]=useState('');
-  const {user}=useAuth0();
+  const {user,loginWithRedirect}=useAuth0();
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
@@ -61,8 +61,8 @@ const SelectLanguage = () => {
             console.log("No list available");
           }
           setId(result?.data?.id);
-          
-          console.log(result);
+          console.log(id);
+          console.log(result?.data?.id);
         }
           // console.log(result);
         } catch (error) {
@@ -107,15 +107,35 @@ const SelectLanguage = () => {
             </FormControl>
           </Box>
           
-          <button
-            onClick={() =>
-              !isAuthenticated? alert('You Are Not Logged In'):
-              language ? navigate(`/exercise/${id}`) : 
-              alert("Please select language")
-            }
+          {
+            !isAuthenticated?
+            <button
+                onClick={() => {
+                  loginWithRedirect();
+                 
+                }}
+              >
+                Log In
+              </button>
+              :
+              <button
+        
+              onClick={() => {
+                if (id) {
+                   language
+                    ? navigate(`/exercise/${id}`)
+                    : alert('Please select language');
+                } else {
+                  // Handle the case when id is not available
+                  alert('ID is not available. Please wait.');
+                }
+              }}
+              disabled={!id}
           >
             Start
           </button>
+          }
+          
         </div>
       </div>
       <Footer />
