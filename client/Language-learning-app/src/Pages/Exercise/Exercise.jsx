@@ -74,6 +74,7 @@ const Quiz = () => {
     const [open, setOpen] = useState(false);
     const [catchmsg, setCatchmsg] = useState("");
     const [errormsg, setErrormsg] = useState("");
+    const [win,setWin]=useState(0);
 
     const [language,setLanguage]=useState([]);
     const [exer,setExer]=useState('');
@@ -188,6 +189,7 @@ const Quiz = () => {
           }
         });
       });
+      setWin(points);
   
       
       if (notattempcount <= (list.length*4) && notattempcount > (list.length*4 - list.length)) {
@@ -237,7 +239,13 @@ const Quiz = () => {
       console.log(newex);
       setBooleanOnSubmit(false); setActiveStep(0);
       setTotal(0);
-      navigate(`/exercise/${newex?.data?.id}`);
+     
+      if(newex){
+        navigate(`/exercise/${newex?.data?.id}`);
+      }else{
+        navigate(`/exercise/0`);
+      }
+      
     }
 
    
@@ -248,13 +256,14 @@ const Quiz = () => {
         {booleanonsubmit ?
           (<div className="Quiz-DisplayResult">
             <h2> Total Correct is {total} Out Of 5 </h2>
-            {/* <Button onClick={() => {handleNewQuiz; setBooleanOnSubmit(false); setActiveStep(0); setQuizSet(Quiz_Set); setTotal(0) }}> */}
+            <h3>Win Points: {win}</h3>
+            
             <Button onClick={handleNewQuiz}>
               <NextPlanOutlined /> Next Exercise
             </Button>
           </div>)
           :
-            id == 0 ? (
+            id == 'undefined' ? (
               <div className="Quiz-DisplayResult">
                 <h2>No More Exercise Available.</h2>
               </div>

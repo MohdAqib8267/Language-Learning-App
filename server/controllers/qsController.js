@@ -78,7 +78,7 @@ export const createExercise = asyncHandler(async (req, res) => {
 //fetch exercise
 export const fetchExercise = asyncHandler(async (req, res) => {
   const { language, userId, exerciseId } = req.body;
-
+  // console.log(language,userId);
   try {
     let exe;
 
@@ -106,9 +106,9 @@ export const fetchExercise = asyncHandler(async (req, res) => {
     } else {
       return res.status(400).json({ message: "Both language and userId are required or exerciseId should be provided." });
     }
-
+    console.log(exe)
     if (!exe) {
-      return res.status(404).json({ message: "Exercise not available for this Language or ExerciseId" });
+      return res.status(201).json({ message: "Exercise not available for this Language or ExerciseId", });
     }
 
     return res.status(200).json(exe);

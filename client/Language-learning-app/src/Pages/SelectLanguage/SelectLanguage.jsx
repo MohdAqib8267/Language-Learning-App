@@ -21,6 +21,7 @@ const SelectLanguage = () => {
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
+    // console.log(event.target.value);
   };
 
   useEffect(() => {
@@ -60,8 +61,8 @@ const SelectLanguage = () => {
             console.log("No list available");
           }
           setId(result?.data?.id);
-          console.log(id);
-          // console.log(result);
+          
+          console.log(result);
         }
           // console.log(result);
         } catch (error) {
@@ -109,8 +110,7 @@ const SelectLanguage = () => {
           <button
             onClick={() =>
               !isAuthenticated? alert('You Are Not Logged In'):
-              language && id ? navigate(`/exercise/${id}`):
-              language ? navigate(`/exercise/0`) : 
+              language ? navigate(`/exercise/${id}`) : 
               alert("Please select language")
             }
           >
