@@ -1,0 +1,22 @@
+.Quiz_render_container{
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.Quiz_que{
+    font-size: 1.5rem;
+
+}
+.Quiz_options{
+    font-size: 1.1rem;
+}
+.Quiz_container_display{
+    width: 50%;
+}
+@media screen and (max-width:768px) {
+    .Quiz_container_display{
+        width: 95%;
+    }
+}

@@ -1,0 +1,44 @@
+.profile-img img{
+    width: 7rem;
+    height: 7rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.profile-card{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 2px solid;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.profile-card:hover{
+    background: aliceblue;
+    border: 2px solid blueviolet;
+}
+.profile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.profile-info{
+    width: 95%;
+}
+.info-points{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    
+}
+
+@media screen and (max-width:768px) {
+    .profile-card{
+        width: 60%;
+    }
+}
