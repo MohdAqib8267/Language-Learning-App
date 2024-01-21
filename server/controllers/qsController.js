@@ -101,14 +101,15 @@ export const fetchExercise = asyncHandler(async (req, res) => {
   
       // console.log(exe);
     }
-    else if(language){
-      exe = await prisma.exercise.findFirst({
-        where: {
-          category: language,
-        },
-      });
+    // else if(language){
+    //   exe = await prisma.exercise.findFirst({
+    //     where: {
+    //       category: language,
+    //     },
+    //   });
     
-    }else{
+    // }
+    else{
       exe=await prisma.exercise.findFirst({
         where:{
           id:exerciseId

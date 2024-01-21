@@ -48,7 +48,7 @@ const SelectLanguage = () => {
           const findUser = await axios.post(`${base_URL}/user/signup`,{
             email:user.email
           })
-          console.log(findUser);
+          console.log(findUser,language);
         
             const result = await axios.post(`${base_URL}/exercise`, {
                 language: language, 
@@ -67,7 +67,7 @@ const SelectLanguage = () => {
         }
       };
       fetchExercise();
-  },[language,user]);
+  },[language,user,window.location]);
   // console.log(id);
 
   const {  isAuthenticated } = useAuth0();

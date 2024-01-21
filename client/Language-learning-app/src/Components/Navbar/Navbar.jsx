@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import "./Navbar.css"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -84,6 +85,11 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const [userDetails, setUserDetails] = React.useState();
+
+  // console.log(base_URL);
+
+  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -121,60 +127,59 @@ export default function PrimarySearchAppBar() {
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
+    <>
+    
+    </>
+    // <Menu
+    //   anchorEl={mobileMoreAnchorEl}
+    //   anchorOrigin={{
+    //     vertical: "top",
+    //     horizontal: "right",
+    //   }}
+    //   id={mobileMenuId}
+    //   keepMounted
+    //   transformOrigin={{
+    //     vertical: "top",
+    //     horizontal: "right",
+    //   }}
+    //   open={isMobileMenuOpen}
+    //   onClose={handleMobileMenuClose}
+    // >
+    //   <MenuItem>
+    //     <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+    //       <Badge badgeContent={4} color="error">
+    //         <MailIcon />
+    //       </Badge>
+    //     </IconButton>
+    //     <p>Messages</p>
+    //   </MenuItem>
+    //   <MenuItem>
+    //     <IconButton
+    //       size="large"
+    //       aria-label="show 17 new notifications"
+    //       color="inherit"
+    //     >
+    //       <Badge badgeContent={17} color="error">
+    //         <NotificationsIcon />
+    //       </Badge>
+    //     </IconButton>
+    //     <p>Notifications</p>
+    //   </MenuItem>
+    //   <MenuItem onClick={handleProfileMenuOpen}>
+    //     <IconButton
+    //       size="large"
+    //       aria-label="account of current user"
+    //       aria-controls="primary-search-account-menu"
+    //       aria-haspopup="true"
+    //       color="inherit"
+    //     >
+    //       <AccountCircle />
+    //     </IconButton>
+    //     <p>Profile</p>
+    //   </MenuItem>
+    // </Menu>
   );
-  const [userDetails, setUserDetails] = React.useState();
-
-  // console.log(base_URL);
-
-  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
+  
   // console.log(user);
   
   React.useEffect(()=>{
@@ -258,7 +263,7 @@ export default function PrimarySearchAppBar() {
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -267,7 +272,25 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               <MoreIcon />
-            </IconButton>
+            </IconButton> */}
+            {!isAuthenticated ? (
+              <button
+                onClick={() => {
+                  loginWithRedirect();
+                 
+                }}
+              >
+                Log In
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Log Out
+              </button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
